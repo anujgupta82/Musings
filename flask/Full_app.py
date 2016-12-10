@@ -43,6 +43,8 @@ def get_tasks1(task_id):
 def create_task():
 	#if the incoming request is not a json or doesnt have title, abort
 
+
+
 	if not request.json or not 'title' in request.json:
 		abort(400)
 
@@ -84,11 +86,13 @@ def update_task(task_id):
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
 	#find if the given task exists 
-	print request
+	print request.json
+	print "task_id = %s" %task_id
 
 	task = [task for task in tasks if task['id'] == task_id]
 
-	if len(task) == 0 or not request.json:
+	if len(task) == 0:
+		print "404 part fired"
 		abort(404)
 
 	tasks.remove(task[0])
